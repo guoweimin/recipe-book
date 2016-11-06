@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Http, Headers, Response } from '@angular/http';
+import 'rxjs/Rx';
 
 import { Recipe } from '../shared';
 import { Ingredient } from '../shared';
@@ -12,8 +14,10 @@ export class RecipeService {
     ]),
     new Recipe('Summer Salad', 'Okayish', 'http://www.skinnykitchen.com/wp-content/uploads/2013/04/Greek-chicken-spinach-salad2.jpg', [])
   ];
+  
+  recipesChanged = new EventEmitter<Recipe[]>();
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   getRecipes() {
     return this.recipes;
@@ -33,5 +37,24 @@ export class RecipeService {
 
   editRecipe(oldRecipe: Recipe, newRecipe: Recipe) {
     this.recipes[this.recipes.indexOf(oldRecipe)] = newRecipe;
+  }
+
+  storeData() {
+    const body = JSON.stringify(this.recipes);
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this.http.put("https://recipebook-c184f.firebaseio.com/recipes.json", body, {headers: headers});
+  }
+
+  fetchData() {
+    this.http.get("https://recipebook-c184f.firebaseio.com/recipes.json")
+      .map((response: Response) => response.json())
+      .subscribe(
+        (data: Recipe[]) => {
+          this.recipes = data;
+          this.recipesChanged.emit(this.recipes);
+        }
+      )
   }
 }
