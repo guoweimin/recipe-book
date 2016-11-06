@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -12,7 +12,21 @@
         <li routerLinkActive="active"><a [routerLink]="['/shopping-list']">Shopping List</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" rbDropdown>
+        <li class="btn-group" dropdown>
+          <a dropdownToggle 
+             data-toggle="dropdown" 
+             role="button" 
+             aria-haspopup="true" 
+             aria-expanded="false">
+             Recipe Management
+          <span class="caret"></span></a>
+           <ul dropdownMenu>
+            <li><a (click)="onStore()" style="cursor: pointer;">Store Recipes</a></li>
+            <li><a (click)="onFetch()" style="cursor: pointer;">Retrieve Recipes</a></li>
+          </ul>
+       </li>
+
+        <!--<li class="dropdown" rbDropdown>
           <a class="dropdown-toggle" 
              data-toggle="dropdown" 
              role="button" 
@@ -24,7 +38,7 @@
             <li><a (click)="onStore()" style="cursor: pointer;">Store Recipes</a></li>
             <li><a (click)="onFetch()" style="cursor: pointer;">Retrieve Recipes</a></li>
           </ul>
-        </li>
+        </li>-->
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { DropdownModule } from 'ng2-bootstrap/components/dropdown';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
 import { RecipesComponent } from './recipes/recipes.component';
@@ -37,6 +39,7 @@ import { RecipeStartComponent } from './recipes/recipe-start.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    DropdownModule,
     routing
   ],
   providers: [ RecipeService, ShoppingListService],
